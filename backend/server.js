@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 import {
   notFound,
   errorHandler,
@@ -10,6 +11,8 @@ import {
 import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
+
+connectDB();
 
 const app = express();
 
