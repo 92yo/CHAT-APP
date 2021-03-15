@@ -1,16 +1,23 @@
+import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import LoginPage from "./Screens/LoginPage";
-import RegsiterPage from "./Screens/RegisterPage";
-import DashboardPage from "./Screens/DashboardPage";
-import LandingPage from "./Screens/LandingPage";
+import Header from "./Components/Header";
+import LoginScreen from "./Screens/LoginScreen";
+import RegsiterScreen from "./Screens/RegisterScreen";
+import DashboardScreen from "./Screens/DashboardScreen";
+import LandingScreen from "./Screens/LandingScreen";
 
 const App = () => {
   return (
     <Router>
-      <Route path="/login" component={LoginPage}></Route>
-      <Route path="/register" component={RegsiterPage}></Route>
-      <Route path="/dashboard" component={DashboardPage}></Route>
-      <Route path="/" component={LandingPage} exact />
+      <Header />
+      <main className="py-3">
+        <Container>
+          <Route path="/login" component={LoginScreen}></Route>
+          <Route path="/register" component={RegsiterScreen}></Route>
+          <Route path="/dashboard" component={DashboardScreen}></Route>
+          <Route path="/" component={LandingScreen} exact />
+        </Container>
+      </main>
     </Router>
   );
 };
