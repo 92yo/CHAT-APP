@@ -1,5 +1,5 @@
-import asyncHandler from "express-async-handler";
-import Chatroom from "../models/chatModel.js";
+const asyncHandler = require("express-async-handler");
+const Chatroom = require("../models/chatModel");
 
 // @desc    Create Chat room
 // @route   POST /api/chatroom
@@ -41,4 +41,4 @@ const getAllChatrooms = asyncHandler(async (req, res) => {
   res.json(chatrooms);
 });
 
-export { createChatroom, getAllChatrooms };
+module.exports = { createChatroom, getAllChatrooms };

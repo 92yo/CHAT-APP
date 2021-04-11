@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import makeToast from "../Components/Toaster";
@@ -8,7 +8,7 @@ import Meta from "../Components/Meta";
 import FormContainer from "../Components/FormContainer";
 import { login } from "../Store/actions/userActions";
 
-const LoginScreen = ({ location, history }) => {
+const LoginScreen = ({ location, history, setupSocket }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,9 +21,10 @@ const LoginScreen = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      setupSocket();
+      history.push("/dashboard");
     }
-  }, [history, userInfo, redirect]);
+  }, [history, userInfo, redirect, setupSocket]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -79,4 +80,4 @@ const LoginScreen = ({ location, history }) => {
   );
 };
 
-export default LoginScreen;
+export default withRouter(LoginScreen);

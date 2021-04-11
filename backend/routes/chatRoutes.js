@@ -1,13 +1,13 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   createChatroom,
   getAllChatrooms,
-} from "../controllers/chatController.js";
-import { protect } from "../middleware/authMiddleware.js";
+} = require("../controllers/chatController");
+
+const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.route("/").post(createChatroom).get(protect);
-router.get("/rooms", protect, getAllChatrooms);
+router.route("/").post(protect, createChatroom).get(getAllChatrooms);
 
-export default router;
+module.exports = router;
