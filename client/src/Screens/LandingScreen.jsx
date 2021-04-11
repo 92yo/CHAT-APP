@@ -1,7 +1,14 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 const LandingScreen = () => {
-  return <div>Landing Screen</div>;
+  return (
+    <div>
+      <div style={{ margin: "50%" }}></div>
+      <Link to={"/dashboard"}>
+        <div className="join">Dashboard</div>
+      </Link>
+    </div>
+  );
 };
 
 export default LandingScreen;

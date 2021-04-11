@@ -30,4 +30,9 @@ const productionErrors = (err, req, res, next) => {
   });
 };
 
-export { notFound, errorHandler, developmentErrors, productionErrors };
+module.exports = {
+  notFound,
+  errorHandler,
+  developmentErrors,
+  productionErrors,
+};
