@@ -1,13 +1,16 @@
-import { Link } from "react-router-dom";
+// import { useState } from "react";
+import Meta from "../Components/Meta";
+import Hero from "../Components/Hero";
+
+// import Loader from "../Components/Loader";
+// import makeToast from "../Components/Toaster";
 
 const LandingScreen = () => {
   return (
-    <div>
-      <div style={{ margin: "50%" }}></div>
-      <Link to={"/dashboard"}>
-        <div className="join">Dashboard</div>
-      </Link>
-    </div>
+    <>
+      <Hero />
+      <Meta title="Chaitfy" />
+    </>
   );
 };
 
