@@ -10,11 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import { useStyles } from "./style";
-
 const Header = () => {
   const classes = useStyles();
 
@@ -102,22 +101,22 @@ const Header = () => {
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
-          style={{ color: "#bcaaa4" }}
         >
-          {userInfo ? userInfo.name : <AccountCircle fontSize="inherit" />}
+          {userInfo ? (
+            <h6>{userInfo.name}</h6>
+          ) : (
+            <AccountCircle fontSize="inherit" />
+          )}
         </IconButton>
       </MenuItem>
-      <Link to="/">
-        <MenuItem>
-          <IconButton
-            onClick={handleMobileMenuClose}
-            aria-label="home"
-            style={{ color: "#bcaaa4" }}
-          >
+
+      <MenuItem>
+        <Link to="/">
+          <IconButton onClick={handleMobileMenuClose} aria-label="home">
             <ArrowBackIcon fontSize="inherit" />
           </IconButton>
-        </MenuItem>
-      </Link>
+        </Link>
+      </MenuItem>
     </Menu>
   );
 
@@ -126,13 +125,8 @@ const Header = () => {
       <AppBar className={navbar ? classes.appBarActive : classes.appBar}>
         <Toolbar>
           <Link style={{ textDecoration: "none" }} to="/">
-            <Typography
-              style={{ color: "#bcaaa4" }}
-              className={classes.title}
-              variant="h5"
-              noWrap
-            >
-              Chatify
+            <Typography className={classes.title} variant="h5" noWrap>
+              Chat<span className={classes.colorText}>Ify.</span>
             </Typography>
           </Link>
           <div className={classes.grow} />
@@ -143,9 +137,15 @@ const Header = () => {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              style={{ color: "#bcaaa4" }}
             >
-              {userInfo ? userInfo.name : <AccountCircle fontSize="inherit" />}
+              {userInfo ? (
+                <h4 style={{ color: "#63E64C" }}>{userInfo.name}</h4>
+              ) : (
+                <AccountCircle
+                  style={{ fill: "#5AFF3D", margin: "5px" }}
+                  fontSize="inherit"
+                />
+              )}
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
@@ -154,9 +154,12 @@ const Header = () => {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              style={{ color: "#bcaaa4" }}
             >
-              <MoreIcon fontSize="inherit" />
+              <ExpandMoreIcon
+                style={{ color: "#5AFF3D" }}
+                className={classes.menuDown}
+                fontSize="inherit"
+              />
             </IconButton>
           </div>
         </Toolbar>
