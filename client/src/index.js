@@ -6,7 +6,6 @@ import App from "./App";
 
 import "./bootstrap.min.css";
 import "./index.css";
-import "./styles/chatroom.css";
 
 ReactDOM.render(
   <Provider store={store}>

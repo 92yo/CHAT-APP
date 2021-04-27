@@ -38,7 +38,7 @@ const DashboardScreen = ({ history }) => {
                 type="text"
                 name="chatroomName"
                 id="chatroomName"
-                placeholder="ChatterBox Nepal"
+                placeholder="Create Chatroom"
               />
             </div>
           </div>
