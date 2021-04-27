@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2.5rem",
   },
   appBarActive: {
-    background: "linear-gradient(90deg, #d7ccc8 0%, #a1887f 100%)",
+    background: "linear-gradient(to top, #37ecba 0%, #72afd3 100%)",
+    opacity: "0.9",
   },
   bgImage: {
     position: "relative",
