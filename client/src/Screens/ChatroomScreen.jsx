@@ -1,9 +1,47 @@
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router-dom";
-import Loader from "../Components/Loader";
-import makeToast from "../Components/Toaster";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Paper,
+  Grid,
+  Divider,
+  TextField,
+  List,
+  ListItem,
+  ListItemText,
+  Fab,
+  Typography,
+} from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
 
-const ChatroomScreen = ({ match, socket }) => {
+const useStyles = makeStyles({
+  chatSection: {
+    marginTop: "50px",
+    width: "100%",
+    height: "80vh",
+    background: "linear-gradient(to top, #37ecba 0%, #72afd3 100%)",
+  },
+  headBG: {
+    backgroundColor: "#e0e0e0",
+  },
+  borderRight500: {
+    borderRight: "1px solid #e0e0e0",
+  },
+  messageArea: {
+    height: "70vh",
+    overflowY: "auto",
+  },
+  ownMessage: {
+    color: "#37ecba",
+  },
+  otherMessage: {
+    color: "#453a94",
+  },
+});
+
+const ChatroomScreenTwo = ({ match, socket }) => {
+  const classes = useStyles();
   const chatroomId = match.params.id;
 
   const [messages, setMessages] = useState([]);
@@ -56,43 +94,69 @@ const ChatroomScreen = ({ match, socket }) => {
   }, []);
 
   return (
-    <>
-      <div className="chatroomPage">
-        <div className="chatroomSection">
-          <div className="cardHeader">Chatroom Name</div>
-          <div className="chatroomContent">
+    <div>
+      <Grid container component={Paper} className={classes.chatSection}>
+        <Grid item xs={9} style={{ flexBasis: "95%", maxWidth: "95%" }}>
+          <List className={classes.messageArea}>
             {messages.map((message, i) => (
-              <div key={i} className="message">
-                <span
-                  className={
-                    userId === message.userId ? "ownMessage" : "otherMessage"
-                  }
-                >
-                  {message.name}:
-                </span>{" "}
-                {message.message}
-              </div>
+              <ListItem key={i}>
+                <Grid container>
+                  <Grid item xs={12}>
+                    <ListItemText
+                      disableTypography
+                      align={userId === message.userId ? "left" : "right"}
+                      primary={
+                        <Typography
+                          className={
+                            userId === message.userId
+                              ? classes.ownMessage
+                              : classes.otherMessage
+                          }
+                        >
+                          {message.message}
+                        </Typography>
+                      }
+                    >
+                      {console.log()}
+                    </ListItemText>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <ListItemText
+                      align={userId === message.userId ? "left" : "right"}
+                      secondary={
+                        message.name.charAt(0).toUpperCase() +
+                        message.name.substring(1, message.name.length)
+                      }
+                    ></ListItemText>
+                  </Grid>
+                </Grid>
+              </ListItem>
             ))}
-          </div>
-          <div className="chatroomActions">
-            <div>
-              <input
-                type="text"
+          </List>
+
+          <Divider />
+
+          <Grid container style={{ padding: "20px" }}>
+            <Grid item xs={11}>
+              <TextField
+                id="outlined-basic-email"
+                label="Type Something"
                 name="message"
-                placeholder="Say something!"
-                ref={messageRef}
+                inputRef={messageRef}
+                fullWidth
               />
-            </div>
-            <div>
-              <button className="join" onClick={sendMessage}>
-                Send
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+            </Grid>
+
+            <Grid xs={1} align="right">
+              <Fab type="submit" size="medium" aria-label="add">
+                <SendIcon onClick={sendMessage} />
+              </Fab>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 
-export default withRouter(ChatroomScreen);
+export default withRouter(ChatroomScreenTwo);
