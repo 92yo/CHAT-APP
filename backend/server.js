@@ -1,5 +1,6 @@
 const http = require("http");
 const express = require("express");
+const path = require("path");
 const scoketio = require("socket.io");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -36,6 +37,20 @@ app.use(express.json());
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/chatroom", chatRoutes);
+
+// Heroku
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.join(__dirname, "../client/build/index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is Running!");
+  });
+}
 
 // Error Handlers
 app.use(notFound);
