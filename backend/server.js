@@ -16,6 +16,7 @@ const jwt = require("jwt-then");
 // Routes
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
+const { throws } = require("assert");
 
 dotenv.config();
 
@@ -24,12 +25,7 @@ connectDB();
 
 const app = express();
 const server = http.createServer(app);
-const io = scoketio(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
-});
+const io = scoketio(server);
 
 app.use(cors());
 app.use(express.json());
@@ -64,7 +60,7 @@ io.use(async (socket, next) => {
     socket.userId = payload.id;
     next();
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 });
 
@@ -76,8 +72,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("joinRoom", ({ chatroomId }) => {
+    console.log(chatroomId);
     socket.join(chatroomId);
-    console.log("A user joined chatroom: " + chatroomId);
+    console.log(`${socket.userId} joined chatroom: ${chatroomId} `);
   });
 
   socket.on("leaveRoom", ({ chatroomId }) => {
