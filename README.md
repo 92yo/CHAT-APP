@@ -29,6 +29,7 @@ Demo of the App can be found here: https://chatify-application.herokuapp.com/
 
 ### Currently working on
 - Users be able to create a chatroom page
+- Adding More functionality to socket.io
 
 # :fast_forward: future goals
 
