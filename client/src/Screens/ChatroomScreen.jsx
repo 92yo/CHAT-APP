@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import Meta from "../Components/Meta";
 import {
   Paper,
   Grid,
@@ -14,6 +15,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles({
   chatSection: {
@@ -95,9 +97,13 @@ const ChatroomScreenTwo = ({ match, socket }) => {
 
   return (
     <div>
+      <Meta title="Chat Room Screen" />
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={9} style={{ flexBasis: "95%", maxWidth: "95%" }}>
           <List className={classes.messageArea}>
+            <Link to="/dashboard">
+              <ArrowBackIcon alt="Go Back" />
+            </Link>
             {messages.map((message, i) => (
               <ListItem key={i}>
                 <Grid container>
