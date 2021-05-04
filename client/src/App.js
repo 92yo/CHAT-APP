@@ -13,7 +13,7 @@ import makeToast from "./Components/Toaster";
 
 const App = () => {
   const [socket, setSocket] = useState(null);
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "http://localhost:5000";
 
   const setupSocket = () => {
     const token = localStorage.getItem("userInfo")
@@ -23,6 +23,7 @@ const App = () => {
     console.log(token);
     if (token && !socket) {
       const newSocket = io(ENDPOINT, {
+        withCredentials: true,
         query: {
           token,
         },
