@@ -6,7 +6,7 @@ const Chatroom = require("../models/chatModel");
 // @access  Public
 const createChatroom = asyncHandler(async (req, res) => {
   const { name } = req.body;
-
+  console.log({ name });
   const nameRegex = /^[A-Za-z\s]+$/;
 
   if (!nameRegex.test(name))
@@ -14,8 +14,10 @@ const createChatroom = asyncHandler(async (req, res) => {
 
   const chatroomExists = await Chatroom.findOne({ name });
 
-  if (chatroomExists)
+  if (chatroomExists) {
+    res.status(400);
     throw new Error("Chatroom with that name already exists!");
+  }
 
   const chatroom = await Chatroom.create({
     name,
@@ -24,6 +26,7 @@ const createChatroom = asyncHandler(async (req, res) => {
   if (chatroom) {
     await chatroom.save();
     res.status(201).json({
+      name: chatroom.name,
       message: "Chatroom created!",
     });
   } else {

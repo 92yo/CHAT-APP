@@ -8,6 +8,6 @@ const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.route("/").post(protect, createChatroom).get(getAllChatrooms);
+router.route("/").get(getAllChatrooms).post(protect, createChatroom);
 
 module.exports = router;
