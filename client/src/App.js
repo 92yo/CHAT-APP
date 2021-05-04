@@ -13,7 +13,7 @@ import makeToast from "./Components/Toaster";
 
 const App = () => {
   const [socket, setSocket] = useState(null);
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://chatify-application.herokuapp.com/";
 
   const setupSocket = () => {
     const token = localStorage.getItem("userInfo")

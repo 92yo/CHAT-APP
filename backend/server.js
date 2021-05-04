@@ -26,8 +26,7 @@ const app = express();
 const server = http.createServer(app);
 const io = scoketio(server, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
+    origin: "*",
   },
 });
 
@@ -64,7 +63,7 @@ io.use(async (socket, next) => {
     socket.userId = payload.id;
     next();
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 });
 
@@ -77,7 +76,7 @@ io.on("connection", (socket) => {
 
   socket.on("joinRoom", ({ chatroomId }) => {
     socket.join(chatroomId);
-    console.log("A user joined chatroom: " + chatroomId);
+    console.log(`${socket.userId} joined chatroom: ${chatroomId} `);
   });
 
   socket.on("leaveRoom", ({ chatroomId }) => {
@@ -103,6 +102,6 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
-server.listen(PORT, () => console.log("server has started"));
+server.listen(PORT, () => console.log(`server has started on ${PORT}`));
