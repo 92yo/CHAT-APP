@@ -38,3 +38,4 @@ Demo of the App can be found here: https://chatify-application.herokuapp.com/
 - User can update his profile
 - adding Emojis to chat room screen
 - Re-Do the style for Chatroom Screen
+- Admin Panel for Updating/Deleting Users/Rooms
