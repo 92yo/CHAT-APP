@@ -1,7 +1,10 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import Meta from "../Components/Meta";
+import ReactScrollableFeed from "react-scrollable-feed";
+import ReactEmoji from "react-emoji";
 import {
   Paper,
   Grid,
@@ -10,8 +13,8 @@ import {
   List,
   ListItem,
   ListItemText,
-  Fab,
   Typography,
+  IconButton,
 } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 
@@ -40,7 +43,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ChatroomScreenTwo = ({ match, socket }) => {
+const ChatroomScreen = ({ match, socket }) => {
   const classes = useStyles();
   const chatroomId = match.params.id;
 
@@ -95,43 +98,44 @@ const ChatroomScreenTwo = ({ match, socket }) => {
 
   return (
     <div>
+      <Meta title="Chat Room Screen" />
       <Grid container component={Paper} className={classes.chatSection}>
-        <Grid item xs={9} style={{ flexBasis: "95%", maxWidth: "95%" }}>
+        <Grid item xs={9} style={{ flexBasis: "100%", maxWidth: "100%" }}>
           <List className={classes.messageArea}>
-            {messages.map((message, i) => (
-              <ListItem key={i}>
-                <Grid container>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      disableTypography
-                      align={userId === message.userId ? "left" : "right"}
-                      primary={
-                        <Typography
-                          className={
-                            userId === message.userId
-                              ? classes.ownMessage
-                              : classes.otherMessage
-                          }
-                        >
-                          {message.message}
-                        </Typography>
-                      }
-                    >
-                      {console.log()}
-                    </ListItemText>
+            <ReactScrollableFeed>
+              {messages.map((message, i) => (
+                <ListItem key={i}>
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <ListItemText
+                        disableTypography
+                        align={userId === message.userId ? "left" : "right"}
+                        primary={
+                          <Typography
+                            className={
+                              userId === message.userId
+                                ? classes.ownMessage
+                                : classes.otherMessage
+                            }
+                          >
+                            {ReactEmoji.emojify(message.message)}
+                          </Typography>
+                        }
+                      ></ListItemText>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <ListItemText
+                        align={userId === message.userId ? "left" : "right"}
+                        secondary={
+                          message.name.charAt(0).toUpperCase() +
+                          message.name.substring(1, message.name.length)
+                        }
+                      ></ListItemText>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align={userId === message.userId ? "left" : "right"}
-                      secondary={
-                        message.name.charAt(0).toUpperCase() +
-                        message.name.substring(1, message.name.length)
-                      }
-                    ></ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-            ))}
+                </ListItem>
+              ))}
+            </ReactScrollableFeed>
           </List>
 
           <Divider />
@@ -144,13 +148,26 @@ const ChatroomScreenTwo = ({ match, socket }) => {
                 name="message"
                 inputRef={messageRef}
                 fullWidth
+                onKeyUp={(e) => {
+                  if (e.key === "Enter") {
+                    sendMessage();
+                  }
+                }}
               />
+
+              <Link to="/dashboard">
+                <h5 style={{ marginTop: "25px" }}>Go Back</h5>
+              </Link>
             </Grid>
 
             <Grid xs={1} align="right">
-              <Fab type="submit" size="medium" aria-label="add">
+              <IconButton
+                style={{ backgroundColor: "transparent" }}
+                type="submit"
+                aria-label="send"
+              >
                 <SendIcon onClick={sendMessage} />
-              </Fab>
+              </IconButton>
             </Grid>
           </Grid>
         </Grid>
@@ -159,4 +176,4 @@ const ChatroomScreenTwo = ({ match, socket }) => {
   );
 };
 
-export default withRouter(ChatroomScreenTwo);
+export default withRouter(ChatroomScreen);

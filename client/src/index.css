@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+  scroll-behavior: smooth;
+}
+
 * {
   font-family: Montserrat;
   box-sizing: border-box;
@@ -105,3 +111,9 @@ a {
 .MuiButton-label {
   color: #5aff3d;
 }
+
+/* .messages {
+  padding: 5% 0;
+  overflow: auto;
+  flex: auto;
+} */
