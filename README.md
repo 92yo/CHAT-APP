@@ -8,7 +8,7 @@ if you would like to clone the app make sure to add ```.env``` file and add the 
 PORT = ####,
 NODE_ENV = development/production
 MONGO_URI = make a user on mongodb.com  
-JWT_SECRET = (can be either numbers or letters)
+JWT_SECRET = (Your choice of either words/letter or mix of both. Not recommended more than 12 characters)
 ``` 
 
 Demo of the App can be found here: https://chatify-application.herokuapp.com/
