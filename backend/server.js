@@ -1,9 +1,9 @@
 const http = require("http");
 const express = require("express");
 const path = require("path");
-const scoketio = require("socket.io");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const helmet = require("helmet");
 const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
@@ -24,14 +24,11 @@ connectDB();
 
 const app = express();
 const server = http.createServer(app);
-const io = scoketio(server, {
-  cors: {
-    origin: "*",
-  },
-});
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(helmet());
 
 // Routes
 app.use("/api/users", userRoutes);
@@ -54,53 +51,6 @@ if (process.env.NODE_ENV === "production") {
 // Error Handlers
 app.use(notFound);
 app.use(errorHandler);
-
-//Socket-IO
-io.use(async (socket, next) => {
-  try {
-    const token = socket.handshake.query.token;
-    const payload = await jwt.verify(token, process.env.JWT_SECRET);
-    socket.userId = payload.id;
-    next();
-  } catch (err) {
-    throw new Error(err);
-  }
-});
-
-io.on("connection", (socket) => {
-  console.log("Connected: " + socket.userId);
-
-  socket.on("disconnect", () => {
-    console.log("Disconnected: " + socket.userId);
-  });
-
-  socket.on("joinRoom", ({ chatroomId }) => {
-    socket.join(chatroomId);
-    console.log(`${socket.userId} joined chatroom: ${chatroomId} `);
-  });
-
-  socket.on("leaveRoom", ({ chatroomId }) => {
-    socket.leave(chatroomId);
-    console.log("A user left chatroom: " + chatroomId);
-  });
-
-  socket.on("chatroomMessage", async ({ chatroomId, message }) => {
-    if (message.trim().length > 0) {
-      const user = await User.findOne({ _id: socket.userId });
-      const newMessage = new Message({
-        chatroom: chatroomId,
-        user: socket.userId,
-        message,
-      });
-      io.to(chatroomId).emit("newMessage", {
-        message,
-        name: user.name,
-        userId: socket.userId,
-      });
-      await newMessage.save();
-    }
-  });
-});
 
 const PORT = process.env.PORT || 8080;
 
