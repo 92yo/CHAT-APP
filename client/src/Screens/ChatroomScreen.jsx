@@ -74,6 +74,14 @@ const ChatroomScreen = ({ match, socket }) => {
         setMessages((prevMessage) => prevMessage.concat([message]));
       });
     }
+    return () => {
+      //Component Unmount
+      if (socket) {
+        socket.emit("leaveRoom", {
+          chatroomId,
+        });
+      }
+    };
     //eslint-disable-next-line
   }, []);
 
