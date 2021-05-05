@@ -132,6 +132,7 @@ const Header = () => {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton
+              style={{ backgroundColor: "transparent" }}
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}

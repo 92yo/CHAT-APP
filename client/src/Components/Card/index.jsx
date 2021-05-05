@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     opacity: "0.8",
     boxShadow:
       "rgba(114, 175, 211, 0.4) 5px 5px, rgba(114, 175, 211, 0.3) 10px 10px, rgba(114, 175, 211, 0.2) 15px 15px, rgba(114, 175, 211, 0.1) 20px 20px, rgba(114, 175, 211, 0.05) 25px 25px;",
+    margin: "4px",
   },
   cardContainer: {
     display: "flex",
