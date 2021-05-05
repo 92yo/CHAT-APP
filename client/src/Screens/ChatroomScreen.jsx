@@ -71,12 +71,11 @@ const ChatroomScreen = ({ match, socket }) => {
     }
     if (socket) {
       socket.on("newMessage", (message) => {
-        const newMessages = [...messages, message];
-        setMessages(newMessages);
+        setMessages((prevMessage) => prevMessage.concat([message]));
       });
     }
     //eslint-disable-next-line
-  }, [messages]);
+  }, []);
 
   useEffect(() => {
     if (socket) {
@@ -117,6 +116,7 @@ const ChatroomScreen = ({ match, socket }) => {
                                 ? classes.ownMessage
                                 : classes.otherMessage
                             }
+                            style={{ overflowWrap: "break-word" }}
                           >
                             {ReactEmoji.emojify(message.message)}
                           </Typography>
@@ -164,9 +164,10 @@ const ChatroomScreen = ({ match, socket }) => {
               <IconButton
                 style={{ backgroundColor: "transparent" }}
                 type="submit"
+                onClick={sendMessage}
                 aria-label="send"
               >
-                <SendIcon onClick={sendMessage} />
+                <SendIcon />
               </IconButton>
             </Grid>
           </Grid>

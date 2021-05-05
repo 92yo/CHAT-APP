@@ -3,7 +3,6 @@
 ::-webkit-scrollbar {
   width: 0;
   background: transparent;
-  scroll-behavior: smooth;
 }
 
 * {
@@ -12,6 +11,7 @@
   color: #333;
   top: 0;
   padding: 0;
+  scrollbar-width: none;
 }
 
 *:focus {
@@ -111,9 +111,3 @@ a {
 .MuiButton-label {
   color: #5aff3d;
 }
-
-/* .messages {
-  padding: 5% 0;
-  overflow: auto;
-  flex: auto;
-} */

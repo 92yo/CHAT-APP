@@ -28,7 +28,7 @@ Demo of the App can be found here: https://chatify-application.herokuapp.com/
 ## :construction_worker: :construction:   In the works
 
 ### Currently working on
-- Users be able to create a chatroom page
+- Users be able to create a chatroom page :heavy_check_mark:
 - Adding More functionality to socket.io
 
 # :fast_forward: future goals
@@ -36,6 +36,5 @@ Demo of the App can be found here: https://chatify-application.herokuapp.com/
 ### Future goals
 
 - User can update his profile
-- adding Emojis to chat room screen
 - Re-Do the style for Chatroom Screen
 - Admin Panel for Updating/Deleting Users/Rooms
