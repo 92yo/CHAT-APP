@@ -2,14 +2,14 @@
   "name": "socket",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "server": "nodemon backend/server"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "nodemon": "^2.0.7",
-    "socket.io": "^4.0.1"
+    "socket.io": "^4.0.2"
   }
 }

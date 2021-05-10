@@ -6,6 +6,13 @@ const io = scoketio(server, {
   },
 });
 
+//models
+const User = require("../backend/models/userModel");
+const Message = require("../backend/models/messageModel");
+
+const jwt = require("jwt-then");
+
+// Socket-io
 io.use(async (socket, next) => {
   try {
     const token = socket.handshake.query.token;
