@@ -41,13 +41,16 @@ app.use(helmet());
 app.use("/api/users", userRoutes);
 app.use("/api/chatroom", chatRoutes);
 
-// Heroku
+// Error Handlers
+app.use(notFound);
+app.use(errorHandler);
 
+// Heroku
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
+  app.use(express.static(path.join(__dirname, "/client/build")));
 
   app.get("*", (req, res) =>
-    res.sendFile(path.join(__dirname, "../client/build/index.html"))
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
   );
 } else {
   app.get("/", (req, res) => {
@@ -101,10 +104,6 @@ io.on("connection", (socket) => {
     console.log("Disconnected: " + socket.userId);
   });
 });
-
-// Error Handlers
-app.use(notFound);
-app.use(errorHandler);
 
 const PORT = process.env.PORT || 8080;
 
