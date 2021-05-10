@@ -35,7 +35,11 @@ const io = scoketio(server, {
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 // Routes
 app.use("/api/users", userRoutes);
