@@ -11,6 +11,9 @@ MONGO_URI = make a user on mongodb.com
 JWT_SECRET = (Your choice of either words/letter or mix of both. Not recommended more than 12 characters)
 ``` 
 
+![Screenshot from 2021-05-11 11-36-07](https://user-images.githubusercontent.com/56390606/117785473-497bad00-b24d-11eb-94c6-94ab856f83c8.png)
+
+
 Demo of the App can be found here: https://chatify-application.herokuapp.com/
 
 ## :floppy_disk::package: Installing locally :
