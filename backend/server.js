@@ -45,16 +45,12 @@ app.use(
 app.use("/api/users", userRoutes);
 app.use("/api/chatroom", chatRoutes);
 
-// Error Handlers
-app.use(notFound);
-app.use(errorHandler);
-
 // Heroku
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 
   app.get("*", (req, res) =>
-    res.sendFile(path.join(__dirname, "../client/build/index.html"))
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"))
   );
 } else {
   app.get("/", (req, res) => {
@@ -109,6 +105,10 @@ io.on("connection", (socket) => {
   });
 });
 
+// Error Handlers
+app.use(notFound);
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 8080;
 
-server.listen(PORT, () => console.log(`server has started on ${PORT}`));
+server.listen(PORT, console.log(`server has started on ${PORT}`));
